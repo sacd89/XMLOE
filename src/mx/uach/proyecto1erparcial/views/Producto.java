@@ -3,20 +3,39 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package mx.uach.proyecto1erparcial.views;
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import mx.uach.proyecto1erparcial.operaciones.Orden;
 
 /**
  *
- * @author dSantillanes
+ * @author Daniela Santillanes Castro
+ * @version 1.0
+ * @since 03/10/2016
  */
 public class Producto extends javax.swing.JFrame {
+
+    private String order_id;
+    private String cust_name;
+    private String product_name;
+    private String unit_price;
+    private String quality;
 
     /**
      * Creates new form Producto
      */
-    public Producto() {
+    public Producto(String idOrden, String cliente) {
+        this.order_id = idOrden;
+        this.cust_name = cliente;
+    }
+
+    private Producto() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -52,6 +71,11 @@ public class Producto extends javax.swing.JFrame {
         txtCantidad.setText("jTextField1");
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -103,6 +127,18 @@ public class Producto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+        product_name = txtNombreProducto.getText();
+        unit_price = txtPrecio.getText();
+        quality = txtCantidad.getText();
+        try {
+            Orden.crearOrden(order_id, cust_name, product_name, unit_price, quality);
+        }catch (SQLException ex) {
+            System.err.println("No se pudo crear la orden.");
+            System.err.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btnAgregarMouseClicked
 
     /**
      * @param args the command line arguments

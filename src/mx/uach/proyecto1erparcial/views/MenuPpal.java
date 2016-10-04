@@ -8,7 +8,9 @@ package mx.uach.proyecto1erparcial.views;
 
 /**
  *
- * @author dSantillanes
+ * @author Daniela Santillanes Castro
+ * @version 1.0
+ * @since 03/10/2016
  */
 public class MenuPpal extends javax.swing.JFrame {
 

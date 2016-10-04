@@ -3,20 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package mx.uach.proyecto1erparcial.views;
+
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import javax.swing.JFrame;
+import mx.uach.proyecto1erparcial.operaciones.Orden;
 
 /**
  *
- * @author dSantillanes
+ * @author Daniela Santillanes Castro
+ * @version 1.0
+ * @since 03/10/2016
  */
 public class VerOrden extends javax.swing.JFrame {
+
+    private String order_id;
 
     /**
      * Creates new form VerOrden
      */
     public VerOrden() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -33,20 +42,24 @@ public class VerOrden extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblNombreClienteVista = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbVerOrden = new javax.swing.JTable();
         btnAceptarVista = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("ID de la Orden: ");
 
-        txtIDOrdenVista.setText("jTextField1");
+        txtIDOrdenVista.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIDOrdenVistaKeyPressed(evt);
+            }
+        });
 
         jLabel2.setText("Cliente: ");
 
         lblNombreClienteVista.setText("jLabel3");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbVerOrden.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -62,11 +75,11 @@ public class VerOrden extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(tbVerOrden);
+        if (tbVerOrden.getColumnModel().getColumnCount() > 0) {
+            tbVerOrden.getColumnModel().getColumn(0).setResizable(false);
+            tbVerOrden.getColumnModel().getColumn(1).setResizable(false);
+            tbVerOrden.getColumnModel().getColumn(2).setResizable(false);
         }
 
         btnAceptarVista.setText("Aceptar");
@@ -81,16 +94,18 @@ public class VerOrden extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIDOrdenVista, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtIDOrdenVista))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNombreClienteVista))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAceptarVista)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblNombreClienteVista))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 1, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAceptarVista)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -113,6 +128,18 @@ public class VerOrden extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtIDOrdenVistaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDOrdenVistaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            order_id = txtIDOrdenVista.getText();
+            try {
+                Orden.leerOrden(order_id);
+            } catch (SQLException ex) {
+                System.err.println("No se pudo leer la orden.");
+                System.err.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_txtIDOrdenVistaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -154,8 +181,8 @@ public class VerOrden extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblNombreClienteVista;
+    private javax.swing.JTable tbVerOrden;
     private javax.swing.JTextField txtIDOrdenVista;
     // End of variables declaration//GEN-END:variables
 }

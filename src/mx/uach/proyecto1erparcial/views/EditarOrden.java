@@ -6,9 +6,13 @@
 
 package mx.uach.proyecto1erparcial.views;
 
+import javax.swing.JFrame;
+
 /**
  *
- * @author dSantillanes
+ * @author Daniela Santillanes Castro
+ * @version 1.0
+ * @since 03/10/2016
  */
 public class EditarOrden extends javax.swing.JFrame {
 
@@ -17,6 +21,7 @@ public class EditarOrden extends javax.swing.JFrame {
      */
     public EditarOrden() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
